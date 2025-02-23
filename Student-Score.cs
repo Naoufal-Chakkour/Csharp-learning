@@ -1,6 +1,5 @@
 using System;
 
-// initialize variables - graded assignments 
 int currentAssignement = 5;
 
 int[] sophiaNote = new int[] {90, 86, 87, 98, 100, 90, 94};
@@ -16,7 +15,7 @@ string[] studentNames = new string[] {"sophia", "andrew", "emma", "logan", "beck
 int[] studentsNote= new int[10];
 string currentLetter = "";
 
-Console.WriteLine("Student\t\tGrade\n");
+Console.WriteLine("Student\t\tExam Score\t\tOverall\t\tGrade\t\tExtra Credit\n");
 foreach (string name in studentNames)
 {
     string student = name;
@@ -55,21 +54,30 @@ foreach (string name in studentNames)
     else
        continue;
     int sumNotesStudents = 0;
+    int extraSumCurrent = 0 ;
     decimal studentsScore = 0;
+    decimal extra = 0;
+    decimal scoreNote = 0;
+    decimal credit = 0;
 
-    int gradedAssignement =0;
+    int gradedAssignement = 0;
+    int gradedAssignementExtra =0;
     foreach (int score in studentsNote)
     {
         gradedAssignement += 1;
         if (gradedAssignement <= currentAssignement)
-        {
             sumNotesStudents += score;
-        }
         else
-            sumNotesStudents += score /10;
+        {
+            gradedAssignementExtra += 1;
+            extraSumCurrent += score ;
+        }    
     }
-    studentsScore = (decimal)(sumNotesStudents) / currentAssignement;
-    
+    scoreNote = (decimal)(sumNotesStudents) / currentAssignement;
+    studentsScore =  ((decimal)(sumNotesStudents) + ((decimal)(extraSumCurrent) / 10))/currentAssignement;
+    extra = (decimal)(extraSumCurrent) / gradedAssignementExtra;
+    credit = (decimal)(((decimal)(extraSumCurrent)/10) / currentAssignement);
+
 
     if (studentsScore >= 97)
     currentLetter = "A+";
@@ -98,7 +106,7 @@ foreach (string name in studentNames)
      else 
     currentLetter = "F";
     
-    Console.WriteLine($"{name}\t\t{studentsScore}\t\t{currentLetter}");
+    Console.WriteLine($"{name}\t\t{scoreNote}\t\t\t{studentsScore}\t\t{currentLetter}\t\t{extra} ({credit} pts)");
 
 }
 
